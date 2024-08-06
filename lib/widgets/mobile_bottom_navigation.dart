@@ -3,14 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/navigation_cubit.dart';
 
 class MobileBottomNavigation extends StatelessWidget {
+  const MobileBottomNavigation({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NavigationCubit, NavigationState>(
       builder: (context, state) {
         return BottomNavigationBar(
-          backgroundColor: Colors.blue,
-          selectedItemColor: Colors.blueAccent,
-          unselectedItemColor: Color.fromARGB(72, 49, 49, 49),
+          backgroundColor: Theme.of(context).brightness == Brightness.dark ? Colors.grey[900] : Colors.white,
+          selectedItemColor: Colors.blue, // Warna biru untuk ikon yang dipilih
+          unselectedItemColor: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.black54, // Warna menyesuaikan tema
           currentIndex: _getSelectedIndex(state),
           onTap: (index) {
             if (index == 0) {
@@ -23,7 +25,7 @@ class MobileBottomNavigation extends StatelessWidget {
               BlocProvider.of<NavigationCubit>(context).showPage3();
             }
           },
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Home',

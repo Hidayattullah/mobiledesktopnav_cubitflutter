@@ -5,16 +5,17 @@ import 'cubit/navigation_cubit.dart';
 import 'cubit/theme_cubit.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => NavigationCubit()),
-        BlocProvider(create: (context) => LayoutCubit()),
         BlocProvider(create: (context) => ThemeCubit()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeData>(
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'Responsive Flutter App',
             theme: theme,
-            home: Home(),
+            home: const Home(),
           );
         },
       ),

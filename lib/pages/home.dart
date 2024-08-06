@@ -13,53 +13,39 @@ import '../widgets/mobile_bottom_navigation.dart';
 
 
 class Home extends StatelessWidget {
+  const Home({super.key});
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(
       context,
-      designSize: Size(360, 690),
+      designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
     );
 
-    return BlocListener<LayoutCubit, LayoutType>(
-      listener: (context, layoutType) {
-        if (layoutType == LayoutType.mobile) {
-          BlocProvider.of<NavigationCubit>(context).showHome();
-        }
-      },
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          if (constraints.maxWidth < 600) {
-            BlocProvider.of<LayoutCubit>(context).setMobile();
-          } else if (constraints.maxWidth < 1024) {
-            BlocProvider.of<LayoutCubit>(context).setTablet();
-          } else {
-            BlocProvider.of<LayoutCubit>(context).setDesktop();
-          }
-
-          return Scaffold(
+    return Scaffold(
             appBar: AppBar(
-              title: Text('Responsive Navigation'),
+              title: const Text('Responsive Navigation'),
               actions: [
                 IconButton(
-                  icon: Icon(Icons.brightness_6),
+                  icon: const Icon(Icons.brightness_6),
                   onPressed: () {
                     BlocProvider.of<ThemeCubit>(context).toggleTheme();
                   },
                 ),
               ],
             ),
-            drawer: constraints.maxWidth >= 600 && constraints.maxWidth < 1024 ? TabletDrawer() : null,
+            drawer: MediaQuery.of(context).size.width >= 600 && MediaQuery.of(context).size.width < 1024 ? TabletDrawer() : null,
             body: Column(
               children: [
-                if (constraints.maxWidth >= 1024) DesktopNavBar(),
+                if (MediaQuery.of(context).size.width >= 1024) DesktopNavBar(),
                 Expanded(
                   child: BlocBuilder<NavigationCubit, NavigationState>(
                     builder: (context, state) {
                       switch (state) {
                         case NavigationState.home:
-                          return HomePage();
+                          return const HomePage();
                         case NavigationState.page1:
                           return Page1();
                         case NavigationState.page2:
@@ -67,17 +53,14 @@ class Home extends StatelessWidget {
                         case NavigationState.page3:
                           return Page3();
                         default:
-                          return HomePage();
+                          return const HomePage();
                       }
                     },
                   ),
                 ),
               ],
             ),
-            bottomNavigationBar: constraints.maxWidth < 600 ? MobileBottomNavigation() : null,
-          );
-        },
-      ),
-    );
+      bottomNavigationBar: MediaQuery.of(context).size.width < 600 ? const MobileBottomNavigation() : null,
+    );  
   }
 }
