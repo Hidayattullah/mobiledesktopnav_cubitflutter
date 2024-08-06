@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 
 enum NavigationState { home, page1, page2, page3 }
+enum LayoutType { mobile, tablet, desktop }
 
 class NavigationCubit extends Cubit<NavigationState> {
   NavigationCubit() : super(NavigationState.home);
@@ -11,6 +12,17 @@ class NavigationCubit extends Cubit<NavigationState> {
   void showPage3() => emit(NavigationState.page3);
 
   void showMobileDrawer() {}
-
   void showTabletDesktopNavBar() {}
+  void setMobile() {}
+  void setTablet() {}
+  void setDesktop() {}
+}
+
+class LayoutCubit extends Cubit<LayoutType> {
+  LayoutCubit() : super(LayoutType.mobile);
+
+  void setMobile() => emit(LayoutType.mobile);
+  void setTablet() => emit(LayoutType.tablet);
+  void setDesktop() => emit(LayoutType.desktop);
+
 }
