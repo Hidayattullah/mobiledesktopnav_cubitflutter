@@ -25,6 +25,7 @@ class TabletDrawer extends StatelessWidget {
                   ),
                 ),
               ),
+              // menambahkan list button
               _buildDrawerItem(
                 context,
                 icon: Icons.home,
